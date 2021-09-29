@@ -46,31 +46,31 @@ time_table_drop = "DROP table IF EXISTS time"
 # In[ ]:
 
 
-songplay_table_create ="CREATE TABLE IF NOT EXISTS Songplays(songplay_id int ,start_time date NOT null,user_id int NOT null,                                                                    level text, song_id text, artist_id text, session_id int,                                                                                location text,user_agent text)"
+songplay_table_create ="CREATE TABLE IF NOT EXISTS Songplays(songplay_id int PRIMARY KEY,start_time date NOT null,user_id int NOT null,                                                                    level text, song_id text, artist_id text, session_id int,                                                                                location text,user_agent text)"
 
 
 # In[ ]:
 
 
-user_table_create ="CREATE TABLE IF NOT EXISTS Users(user_id int , first_name text, last_name text, gender text,level text)"                                   
+user_table_create ="CREATE TABLE IF NOT EXISTS Users(user_id int PRIMARY KEY , first_name text NOT NULL, last_name text NOT NULL, gender text,level text)"                                   
 
 
 # In[ ]:
 
 
-song_table_create ="CREATE TABLE IF NOT EXISTS Songs(song_id text , title text, artist_id text, year int,                                                                    duration float)"
+song_table_create ="CREATE TABLE IF NOT EXISTS Songs(song_id text PRIMARY KEY , title text NOT NULL, artist_id text NOT NULL, year int,                                                                    duration float NOT NULL)"
 
 
 # In[ ]:
 
 
-artist_table_create ="CREATE TABLE IF NOT EXISTS Artists(artist_id text ,name text, location text,                                                                     latitude float, longitude decimal)"
+artist_table_create ="CREATE TABLE IF NOT EXISTS Artists(artist_id text PRIMARY KEY,name text NOT NULL, location text,                                                                     latitude float, longitude float)"
 
 
 # In[ ]:
 
 
-time_table_create ="CREATE TABLE IF NOT EXISTS Time(start_time date ,hour int,day int,week int,month int,year int,                                                                 weekday text)"
+time_table_create ="CREATE TABLE IF NOT EXISTS Time(start_time date PRIMARY KEY ,hour int,day int,week int,month int,year int,                                                                 weekday text)"
 
 
 # In[ ]:
@@ -82,31 +82,31 @@ time_table_create ="CREATE TABLE IF NOT EXISTS Time(start_time date ,hour int,da
 # In[ ]:
 
 
-songplay_table_insert="INSERT INTO Songplays VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+songplay_table_insert="INSERT INTO Songplays VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (songplay_id) DO NOTHING"
 
 
 # In[ ]:
 
 
-user_table_insert="INSERT INTO Users VALUES(%s,%s,%s,%s,%s)"
+user_table_insert="INSERT INTO Users VALUES(%s,%s,%s,%s,%s) ON CONFLICT (user_id) DO UPDATE SET level=EXCLUDED.level"
 
 
 # In[ ]:
 
 
-song_table_insert="INSERT INTO Songs VALUES(%s,%s,%s,%s,%s)"
+song_table_insert="INSERT INTO Songs VALUES(%s,%s,%s,%s,%s) ON CONFLICT(song_id)DO NOTHING"
 
 
 # In[ ]:
 
 
-artist_table_insert="INSERT INTO Artists VALUES(%s,%s,%s,%s,%s)"
+artist_table_insert="INSERT INTO Artists VALUES(%s,%s,%s,%s,%s) ON CONFLICT(artist_id)DO NOTHING"
 
 
 # In[ ]:
 
 
-time_table_insert="INSERT INTO Time VALUES(%s,%s,%s,%s,%s,%s,%s)"
+time_table_insert="INSERT INTO Time VALUES(%s,%s,%s,%s,%s,%s,%s) ON CONFLICT(start_time)DO NOTHING"
 
 
 # In[ ]:
