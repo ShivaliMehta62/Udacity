@@ -1,17 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 import os
 import glob
 import psycopg2
 import pandas as pd
 from sql_queries import *
-
-
-# In[ ]:
 
 
 def process_song_file(cur, filepath):
@@ -27,9 +21,6 @@ def process_song_file(cur, filepath):
     # insert artist record
     artist_data = df[['artist_id','artist_name','artist_location','artist_latitude','artist_longitude']].values[0].tolist()
     cur.execute(artist_table_insert, artist_data)
-
-
-# In[ ]:
 
 
 def process_log_file(cur, filepath):
@@ -79,9 +70,6 @@ def process_log_file(cur, filepath):
         cur.execute(songplay_table_insert, songplay_data)
 
 
-# In[ ]:
-
-
 def process_data(cur, conn, filepath, func):
     """Process all data using Song and log file"""
     
@@ -103,9 +91,6 @@ def process_data(cur, conn, filepath, func):
         print('{}/{} files processed.'.format(i, num_files))
 
 
-# In[ ]:
-
-
 def main():
     """Main Function will retrieve each file under Song_data and log_data and iteratively passes each file  in process_song_file and process_log_file respectively until all files 
     are processed in the ETL pipeline to reconstruct the fact and dimension tables according to a star schema model"""
@@ -121,4 +106,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
