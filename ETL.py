@@ -15,6 +15,8 @@ from sql_queries import *
 
 
 def process_song_file(cur, filepath):
+    """Data from song_data source file is inserted into the song_data and artist tables respectively"""
+    
     # open song file
     df = pd.read_json(filepath,lines=True)
 
@@ -31,6 +33,8 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    """Log_data is processed and inserted into dimension tables time and users and fact table songplays after performing some functions"""
+    
     # open log file
     df = pd.read_json(filepath, lines=True)
 
@@ -79,6 +83,8 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
+    """Process all data using Song and log file"""
+    
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
@@ -101,11 +107,14 @@ def process_data(cur, conn, filepath, func):
 
 
 def main():
+    """Main Function will retrieve each file under Song_data and log_data and iteratively passes each file  in process_song_file and process_log_file respectively until all files 
+    are processed in the ETL pipeline to reconstruct the fact and dimension tables according to a star schema model"""
+    
     conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
     cur = conn.cursor()
 
-    process_data(cur, conn, filepath='data/Song_data/', func=process_song_file)
-    process_data(cur, conn, filepath='data/Log_data/', func=process_log_file)
+    process_data(cur, conn, filepath='data/song_data/', func=process_song_file)
+    process_data(cur, conn, filepath='data/log_data/', func=process_log_file)
 
     conn.close()
 
