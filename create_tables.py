@@ -1,20 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 import psycopg2
-
-
-# In[ ]:
-
-
 from sql_queries import create_table_queries,drop_table_queries
-
-
-# In[5]:
-
 
 def create_database():
     """
@@ -42,9 +30,6 @@ def create_database():
     return cur, conn
 
 
-# In[10]:
-
-
 def drop_tables(cur, conn):
     """
     Drops each table using the queries in `drop_table_queries` list.
@@ -54,9 +39,6 @@ def drop_tables(cur, conn):
         conn.commit()
 
 
-# In[11]:
-
-
 def create_tables(cur, conn):
     """
     Creates each table using the queries in `create_table_queries` list. 
@@ -64,9 +46,6 @@ def create_tables(cur, conn):
     for query in create_table_queries:
         cur.execute(query)
         conn.commit()
-
-
-# In[12]:
 
 
 def main():
@@ -92,16 +71,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
